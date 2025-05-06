@@ -10,7 +10,10 @@ export const TotalCard = ({ title, value }: TDashboardTotalCard) => {
     <Card
       sx={{
         minWidth: "160px",
-        maxWidth: "fit-content",
+        // maxWidth: "fit-content",
+        flexBasis: "12rem",
+        flexGrow: 1,
+        display: "flex",
       }}
     >
       <CardContent
@@ -24,6 +27,7 @@ export const TotalCard = ({ title, value }: TDashboardTotalCard) => {
           px: 0.875,
           py: 0.75,
           pb: "0.75rem !important",
+          width: "100%",
         }}
       >
         <Typography variant="h5" sx={{ fontWeight: "500", color: "#FFF" }}>

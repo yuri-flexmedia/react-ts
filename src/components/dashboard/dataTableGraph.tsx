@@ -7,7 +7,7 @@ import { defaultizeValueFormatter } from "@mui/x-charts/internals";
 
 const columns: GridColDef[] = [
   //   { field: "id", headerName: "ID", width: 130,  },
-  { field: "title", headerName: "Titulo", width: 100, flex: 0.5 },
+  { field: "title", headerName: "Titulo", width: 100, flex: 1 },
   { field: "label", headerName: "Marca", width: 130, flex: 1 },
   { field: "play_count", headerName: "Reproduções", width: 150 },
 ];
@@ -18,6 +18,30 @@ const rows = [
   { id: 3, title: "promocao daoca", label: "Promoção Daoca", play_count: 2862 },
   {
     id: 4,
+    title: "apresentacao plaxis",
+    label: "Apresentação Plaxis",
+    play_count: 2333,
+  },
+  {
+    id: 5,
+    title: "apresentacao plaxis",
+    label: "Apresentação Plaxis",
+    play_count: 2333,
+  },
+  {
+    id: 6,
+    title: "apresentacao plaxis",
+    label: "Apresentação Plaxis",
+    play_count: 2333,
+  },
+  {
+    id: 7,
+    title: "apresentacao plaxis",
+    label: "Apresentação Plaxis",
+    play_count: 2333,
+  },
+  {
+    id: 8,
     title: "apresentacao plaxis",
     label: "Apresentação Plaxis",
     play_count: 2333,
@@ -82,7 +106,7 @@ export default function DataTableGraph() {
     <Card
       sx={{
         // height: 400,
-        maxWidth: !showToolbarGraph ? "500px" : "100%",
+        width: { xs: "100%", lg: "49%" },
         borderRadius: 2,
       }}
     >

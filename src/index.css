@@ -1,3 +1,4 @@
-html, body {
+body {
     background-color: "#f5f5f5";
+    background-image: url("/src/assets/background.png");
 }

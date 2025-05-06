@@ -44,7 +44,11 @@ export const GRAPH_DATA = [
       { id: 1, label: "Apresentação FlexDS", value: 4717 },
       { id: 2, label: "Lançamento Web", value: 3474 },
       { id: 3, label: "Promoção Daoca", value: 2862 },
-      { id: 4, label: "Apresentação Plaxis", value: 2333 },
+      {
+        id: 4,
+        label: "Apresentação Plaxis Apresentação PlaxisApresentação Plaxis",
+        value: 2333,
+      },
     ],
   },
 ];

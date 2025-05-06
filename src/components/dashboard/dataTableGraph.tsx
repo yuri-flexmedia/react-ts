@@ -4,6 +4,7 @@ import { DataGrid, GridColDef, Toolbar, ToolbarButton } from "@mui/x-data-grid";
 import { pieArcLabelClasses, PieChart } from "@mui/x-charts";
 import { InsertChart, InsertChartOutlined } from "@mui/icons-material";
 import React from "react";
+import { ptBR } from "@mui/x-data-grid/locales";
 
 const columns: GridColDef[] = [
   //   { field: "id", headerName: "ID", width: 130,  },
@@ -90,14 +91,19 @@ export default function DataTableGraph({
         }}
       >
         <DataGrid
+          localeText={{
+            ...ptBR.components.MuiDataGrid.defaultProps.localeText,
+            paginationDisplayedRows: ({ from, to, count }) =>
+              `${from}–${to} de ${count !== -1 ? count : `mais de ${to}`}`,
+          }}
           rows={dataRows}
           columns={columns}
           initialState={{ pagination: { paginationModel } }}
           pageSizeOptions={[5, 10]}
-          // checkboxSelection
           sx={{ border: 0, borderRadius: 2 }}
           showToolbar
           slots={{ toolbar: CustomToolbarTableGraph }}
+          paginationMeta={{ hasNextPage: false }}
         />
 
         {showToolbarGraph ? (

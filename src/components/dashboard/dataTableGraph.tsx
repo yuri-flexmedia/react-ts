@@ -1,9 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Card, CardContent, Tooltip, Typography } from "@mui/material";
 import { DataGrid, GridColDef, Toolbar, ToolbarButton } from "@mui/x-data-grid";
 import { pieArcLabelClasses, PieChart } from "@mui/x-charts";
 import { InsertChart, InsertChartOutlined } from "@mui/icons-material";
 import React from "react";
-import { defaultizeValueFormatter } from "@mui/x-charts/internals";
 
 const columns: GridColDef[] = [
   //   { field: "id", headerName: "ID", width: 130,  },
@@ -12,61 +12,35 @@ const columns: GridColDef[] = [
   { field: "play_count", headerName: "Reproduções", width: 150 },
 ];
 
-const rows = [
-  { id: 1, title: "flexDS", label: "Apresentação FlexDS", play_count: 4717 },
-  { id: 2, title: "lancamento web", label: "Lançamento Web", play_count: 3474 },
-  { id: 3, title: "promocao daoca", label: "Promoção Daoca", play_count: 2862 },
-  {
-    id: 4,
-    title: "apresentacao plaxis",
-    label: "Apresentação Plaxis",
-    play_count: 2333,
-  },
-  {
-    id: 5,
-    title: "apresentacao plaxis",
-    label: "Apresentação Plaxis",
-    play_count: 2333,
-  },
-  {
-    id: 6,
-    title: "apresentacao plaxis",
-    label: "Apresentação Plaxis",
-    play_count: 2333,
-  },
-  {
-    id: 7,
-    title: "apresentacao plaxis",
-    label: "Apresentação Plaxis",
-    play_count: 2333,
-  },
-  {
-    id: 8,
-    title: "apresentacao plaxis",
-    label: "Apresentação Plaxis",
-    play_count: 2333,
-  },
-];
-
-const graphData = [
-  {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    arcLabel: (item: any) => `${item.value}`,
-    arcLabelMinAngle: 35,
-    arcLabelRadius: "60%",
-    defaultizeValueFormatter,
-    data: [
-      { id: 1, label: "Apresentação FlexDS", value: 4717 },
-      { id: 2, label: "Lançamento Web", value: 3474 },
-      { id: 3, label: "Promoção Daoca", value: 2862 },
-      { id: 4, label: "Apresentação Plaxis", value: 2333 },
-    ],
-  },
-];
-
 const paginationModel = { page: 0, pageSize: 5 };
 
-export default function DataTableGraph() {
+type DataRow = {
+  id: number;
+  title: string;
+  label: string;
+  play_count: number;
+};
+
+type GraphDataProps = {
+  arcLabel: (item: any) => string;
+  arcLabelMinAngle: number;
+  arcLabelRadius: string;
+  data: {
+    id: number;
+    label: string;
+    value: number;
+  }[];
+};
+
+type DataTableGraphProps = {
+  dataRows: DataRow[];
+  graphData: GraphDataProps[];
+};
+
+export default function DataTableGraph({
+  dataRows,
+  graphData,
+}: DataTableGraphProps) {
   const [showToolbarGraph, setShowGraph] = React.useState(false);
   function CustomToolbarTableGraph() {
     return (
@@ -116,7 +90,7 @@ export default function DataTableGraph() {
         }}
       >
         <DataGrid
-          rows={rows}
+          rows={dataRows}
           columns={columns}
           initialState={{ pagination: { paginationModel } }}
           pageSizeOptions={[5, 10]}

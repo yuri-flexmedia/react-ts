@@ -3,6 +3,7 @@ import "./App.css";
 import { TotalCard } from "./components/dashboard/totalCard";
 import DataTableGraph from "./components/dashboard/dataTableGraph";
 import UserListTable from "./components/dashboard/userListTable";
+import { DATA_ROWS, GRAPH_DATA } from "./mocks/rows";
 
 function createData(name: string, term: string, state?: string) {
   return { name, term, state };
@@ -47,8 +48,8 @@ function App() {
             flexWrap: "wrap",
           }}
         >
-          <DataTableGraph />
-          <DataTableGraph />
+          <DataTableGraph dataRows={DATA_ROWS} graphData={GRAPH_DATA} />
+          <DataTableGraph dataRows={DATA_ROWS} graphData={GRAPH_DATA} />
         </Container>
         <Container
           sx={{

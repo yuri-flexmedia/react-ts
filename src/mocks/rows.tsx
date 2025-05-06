@@ -1,6 +1,4 @@
-import { defaultizeValueFormatter } from "@mui/x-charts/internals";
-
-export const DataRows = [
+export const DATA_ROWS = [
   { id: 1, title: "flexDS", label: "Apresentação FlexDS", play_count: 4717 },
   { id: 2, title: "lancamento web", label: "Lançamento Web", play_count: 3474 },
   { id: 3, title: "promocao daoca", label: "Promoção Daoca", play_count: 2862 },
@@ -36,13 +34,12 @@ export const DataRows = [
   },
 ];
 
-export const graphData = [
+export const GRAPH_DATA = [
   {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     arcLabel: (item: any) => `${item.value}`,
     arcLabelMinAngle: 35,
     arcLabelRadius: "60%",
-    defaultizeValueFormatter,
     data: [
       { id: 1, label: "Apresentação FlexDS", value: 4717 },
       { id: 2, label: "Lançamento Web", value: 3474 },

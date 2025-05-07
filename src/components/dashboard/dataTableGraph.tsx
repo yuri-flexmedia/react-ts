@@ -1,13 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Card, CardContent, Tooltip, Typography } from "@mui/material";
-import { DataGrid, GridColDef, Toolbar, ToolbarButton } from "@mui/x-data-grid";
+import { Card, CardContent, Typography } from "@mui/material";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { pieArcLabelClasses, PieChart } from "@mui/x-charts";
-import { InsertChart, InsertChartOutlined } from "@mui/icons-material";
-import React from "react";
 import { ptBR } from "@mui/x-data-grid/locales";
 
 const columns: GridColDef[] = [
-  //   { field: "id", headerName: "ID", width: 130,  },
   { field: "title", headerName: "Titulo", width: 100, flex: 1 },
   { field: "label", headerName: "Marca", width: 130, flex: 1 },
   { field: "play_count", headerName: "Reproduções", width: 150 },
@@ -26,6 +23,11 @@ type GraphDataProps = {
   arcLabel: (item: any) => string;
   arcLabelMinAngle: number;
   arcLabelRadius: string;
+  faded: {
+    innerRadius: number;
+    additionalRadius: number;
+    color: string;
+  };
   data: {
     id: number;
     label: string;
@@ -34,92 +36,79 @@ type GraphDataProps = {
 };
 
 type DataTableGraphProps = {
-  dataRows: DataRow[];
-  graphData: GraphDataProps[];
+  dataRows?: DataRow[];
+  graphData?: GraphDataProps[];
+  tableTitle?: string;
+  graphTitle?: string;
 };
 
-export default function DataTableGraph({
-  dataRows,
-  graphData,
+export function DataTableGraph({
+  dataRows = [],
+  graphData = [],
+  tableTitle = "Tabela",
+  graphTitle = "Gráfico",
 }: DataTableGraphProps) {
-  const [showToolbarGraph, setShowGraph] = React.useState(false);
-  function CustomToolbarTableGraph() {
-    return (
-      <Toolbar
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-        }}
-      >
-        <Typography
-          sx={{
-            fontSize: 16,
-            fontWeight: 500,
-          }}
-        >
-          Videos mais assistidos
-        </Typography>
-        <Tooltip title="Exibir Gráfico">
-          <ToolbarButton
-            id="show-graph-trigger"
-            aria-controls="show-graph"
-            aria-haspopup="false"
-            onClick={() => setShowGraph(!showToolbarGraph)}
-          >
-            {showToolbarGraph ? (
-              <InsertChart fontSize="small" />
-            ) : (
-              <InsertChartOutlined fontSize="small" />
-            )}
-          </ToolbarButton>
-        </Tooltip>
-      </Toolbar>
-    );
-  }
-
   return (
     <Card
       sx={{
         // height: 400,
-        width: { xs: "100%", lg: "49%" },
+        width: { xs: "100%" },
         borderRadius: 2,
       }}
     >
       <CardContent
         sx={{
           display: "flex",
+          flexDirection: "column",
         }}
       >
-        <DataGrid
-          localeText={{
-            ...ptBR.components.MuiDataGrid.defaultProps.localeText,
-            paginationDisplayedRows: ({ from, to, count }) =>
-              `${from}–${to} de ${count !== -1 ? count : `mais de ${to}`}`,
-          }}
-          rows={dataRows}
-          columns={columns}
-          initialState={{ pagination: { paginationModel } }}
-          pageSizeOptions={[5, 10]}
-          sx={{ border: 0, borderRadius: 2 }}
-          showToolbar
-          slots={{ toolbar: CustomToolbarTableGraph }}
-          paginationMeta={{ hasNextPage: false }}
-        />
-
-        {showToolbarGraph ? (
-          <PieChart
-            series={graphData}
-            width={200}
-            sx={{
-              [`& .${pieArcLabelClasses.root}`]: {
-                fontWeight: "bold",
-                fontFamily: "Segoe UI",
-              },
-            }}
-            hideLegend
-          />
-        ) : null}
+        {dataRows.length > 0
+          ? DataTable(dataRows, tableTitle) // Tabela
+          : null}
+        {graphData.length > 0
+          ? DataGraph(graphData, graphTitle) // Pizza
+          : null}
       </CardContent>
     </Card>
+  );
+}
+
+export function DataTable(dataRows: DataRow[], tableTitle: string) {
+  return (
+    <DataGrid
+      localeText={{
+        ...ptBR.components.MuiDataGrid.defaultProps.localeText,
+        paginationDisplayedRows: ({ from, to, count }) =>
+          `${from}–${to} de ${count !== -1 ? count : `mais de ${to}`}`,
+      }}
+      rows={dataRows}
+      columns={columns}
+      initialState={{ pagination: { paginationModel } }}
+      pageSizeOptions={[5, 10]}
+      sx={{ border: 0, borderRadius: 2 }}
+      showToolbar
+      paginationMeta={{ hasNextPage: false }}
+      label={tableTitle}
+    />
+  );
+}
+
+export function DataGraph(data: GraphDataProps[], graphTitle: string) {
+  return (
+    <>
+      <Typography variant="h6">{graphTitle}</Typography>
+      <PieChart
+        series={data}
+        height={200}
+        width={300}
+        sx={{
+          [`& .${pieArcLabelClasses.root}`]: {
+            fontWeight: "bold",
+            fontFamily: "Segoe UI",
+          },
+        }}
+        slots={{}}
+      />
+    </>
   );
 }

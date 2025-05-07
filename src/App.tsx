@@ -1,7 +1,7 @@
 import { Container } from "@mui/material";
 import "./App.css";
 import { TotalCard } from "./components/dashboard/totalCard";
-import DataTableGraph from "./components/dashboard/dataTableGraph";
+import { DataTableGraph } from "./components/dashboard/dataTableGraph";
 import UserListTable from "./components/dashboard/userListTable";
 import { DATA_ROWS, GRAPH_DATA } from "./mocks/rows";
 
@@ -48,7 +48,8 @@ function App() {
             flexWrap: "wrap",
           }}
         >
-          <DataTableGraph dataRows={DATA_ROWS} graphData={GRAPH_DATA} />
+          <DataTableGraph dataRows={DATA_ROWS} />
+          <DataTableGraph graphData={GRAPH_DATA} />
           <DataTableGraph dataRows={DATA_ROWS} graphData={GRAPH_DATA} />
         </Container>
         <Container

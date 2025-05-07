@@ -40,13 +40,15 @@ export const GRAPH_DATA = [
     arcLabel: (item: any) => `${item.value}`,
     arcLabelMinAngle: 35,
     arcLabelRadius: "60%",
+    highlightScope: { fade: "global", highlight: "item" },
+    faded: { innerRadius: 30, additionalRadius: -30, color: "gray" },
     data: [
       { id: 1, label: "Apresentação FlexDS", value: 4717 },
       { id: 2, label: "Lançamento Web", value: 3474 },
       { id: 3, label: "Promoção Daoca", value: 2862 },
       {
         id: 4,
-        label: "Apresentação Plaxis Apresentação PlaxisApresentação Plaxis",
+        label: "Apresentação Plaxis",
         value: 2333,
       },
     ],

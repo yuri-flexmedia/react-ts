@@ -48,11 +48,13 @@ export function DataTableGraph({
   tableTitle = "Tabela",
   graphTitle = "Gráfico",
 }: DataTableGraphProps) {
+  const hasBothData = dataRows.length > 0 && graphData.length > 0;
+
   return (
     <Card
       sx={{
         // height: 400,
-        width: { xs: "100%" },
+        width: { xs: "100%", md: hasBothData ? "100%" : "49%" },
         borderRadius: 2,
       }}
     >
@@ -66,7 +68,7 @@ export function DataTableGraph({
           ? DataTable(dataRows, tableTitle) // Tabela
           : null}
         {graphData.length > 0
-          ? DataGraph(graphData, graphTitle) // Pizza
+          ? DataGraph(graphData, graphTitle, hasBothData) // Pizza
           : null}
       </CardContent>
     </Card>
@@ -93,21 +95,33 @@ export function DataTable(dataRows: DataRow[], tableTitle: string) {
   );
 }
 
-export function DataGraph(data: GraphDataProps[], graphTitle: string) {
+export function DataGraph(
+  data: GraphDataProps[],
+  graphTitle: string,
+  maximized = false
+) {
   return (
     <>
       <Typography variant="h6">{graphTitle}</Typography>
       <PieChart
         series={data}
-        height={200}
+        height={250}
         width={300}
         sx={{
           [`& .${pieArcLabelClasses.root}`]: {
             fontWeight: "bold",
             fontFamily: "Segoe UI",
           },
+          flexDirection: !maximized ? "column-reverse" : "row-reverse",
+          gap: "2.5rem",
         }}
-        slots={{}}
+        slotProps={{
+          legend: {
+            direction: !maximized ? "horizontal" : "vertical",
+            // direction: "horizontal",
+          },
+          loadingOverlay: {},
+        }}
       />
     </>
   );

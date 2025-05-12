@@ -4,53 +4,56 @@ export const DATA_ROWS = [
   { id: 3, title: "promocao daoca", label: "Promoção Daoca", play_count: 2862 },
   {
     id: 4,
-    title: "apresentacao plaxis",
-    label: "Apresentação Plaxis",
+    title: "introducao sap2000",
+    label: "Introdução ao SAP2000",
     play_count: 2333,
   },
   {
     id: 5,
-    title: "apresentacao plaxis",
-    label: "Apresentação Plaxis",
-    play_count: 2333,
+    title: "modelagem etabs",
+    label: "Modelagem no ETABS",
+    play_count: 2150,
   },
   {
     id: 6,
-    title: "apresentacao plaxis",
-    label: "Apresentação Plaxis",
-    play_count: 2333,
+    title: "analise estrutural robot",
+    label: "Análise Estrutural no Robot",
+    play_count: 1987,
   },
   {
     id: 7,
-    title: "apresentacao plaxis",
-    label: "Apresentação Plaxis",
-    play_count: 2333,
+    title: "resultados safe",
+    label: "Resultados no SAFE",
+    play_count: 2050,
   },
   {
     id: 8,
-    title: "apresentacao plaxis",
-    label: "Apresentação Plaxis",
-    play_count: 2333,
+    title: "conclusao tqs",
+    label: "Conclusão com TQS",
+    play_count: 1901,
   },
 ];
+
+function formatPlayCountMil(count: number): string | number {
+  return count >= 1000
+    ? (count / 1000).toFixed(1).replace(".0", ",0").replace(".", ",") + " mil"
+    : count;
+}
 
 export const GRAPH_DATA = [
   {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    arcLabel: (item: any) => `${item.value}`,
+    arcLabel: (item: any) => `${formatPlayCountMil(item.value)}`,
+    innerLabel: 50,
+    innerRadius: 50,
     arcLabelMinAngle: 35,
-    arcLabelRadius: "60%",
+    arcLabelRadius: "50%",
     highlightScope: { fade: "global", highlight: "item" },
-    faded: { innerRadius: 30, additionalRadius: -30, color: "gray" },
-    data: [
-      { id: 1, label: "Apresentação FlexDS", value: 4717 },
-      { id: 2, label: "Lançamento Web", value: 3474 },
-      { id: 3, label: "Promoção Daoca", value: 2862 },
-      {
-        id: 4,
-        label: "Apresentação Plaxis",
-        value: 2333,
-      },
-    ],
+    faded: { innerRadius: 50, additionalRadius: -20, color: "gray" },
+    data: DATA_ROWS.map((row) => ({
+      id: row.id,
+      label: row.label,
+      value: row.play_count,
+    })),
   },
 ];

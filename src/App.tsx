@@ -12,9 +12,9 @@ function createData(name: string, term: string, state?: string) {
 const rows = [createData("Weslley Abrey", "26/04/2025")];
 
 const empresaRows = [
-  createData("Flexmedia", "26/04/2025", "SP"),
-  createData("Daoca", "05/05/2025", "SP"),
-  createData("Plaxis", "05/05/2026", "SP"),
+  createData("Flexmedia", "26/04/2025"),
+  createData("Daoca", "05/05/2025"),
+  createData("Plaxis", "05/05/2026"),
 ];
 
 function App() {
@@ -60,10 +60,13 @@ function App() {
             justifyContent: "center",
           }}
         >
-          <UserListTable data={rows} title="Usuários" />
-          <UserListTable data={rows} title="Tenants" />
-          <UserListTable data={rows} title="Administradores Tenants" />
-          <UserListTable data={empresaRows} title="Empresas" />
+          <UserListTable data={empresaRows} title="Minhas Empresas" />
+          <UserListTable
+            data={rows}
+            title="Meus Sócios (Administradores de Tenants)"
+          />
+          <UserListTable data={rows} title="Meus Gerentes (Tenants)" />
+          <UserListTable data={rows} title="Meus Usuários" />
         </Container>
       </Container>
     </>
